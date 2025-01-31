@@ -3,78 +3,125 @@
         <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-6">
-                <div class="card signup-card">
-                    <div class="card-title">
-                        <h2>Welcome to LOGS!</h2>
-                        <p>Sign Up to Get Started or <a routerLink="/login">Login to your Account</a></p>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control" placeholder="Firstname" aria-label="Business"
-                                    aria-describedby="basic-addon1">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control" placeholder="Lastname" aria-label="Business"
-                                    aria-describedby="basic-addon1">
+                <mat-stepper linear #stepper>
+                    <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+                        <div class="card signup-card">
+                            <div class="card-title">
+                                <h2>Welcome to <img src="logs-logo-01.png" class="user-img img-fluid"
+                                        style="width: 100px; height: 100px;"></h2>
+                                <p>Sign Up to Get Started or <a routerLink="/">Login to your Account</a></p>
                             </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-suitcase"></i></span>
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" placeholder="Business Name"
-                                    aria-label="Business" aria-describedby="basic-addon1" id="floatingInput">
-                                    <label for="floatingInput">Business Name</label>
-                                </div>
+                            <div class="card-body">
+                                <form (ngSubmit)="signUp(signUpInfo)" #signUpInfo="ngForm" [formGroup]="firstFormGroup">
+                                    <ng-template matStepLabel> Personal Information </ng-template>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-user"></i></span>
+                                        <input name="firstname" type="text" matInput formControlName="firstCtrl"
+                                            class="form-control" placeholder="Firstname" aria-label="Business"
+                                            aria-describedby="basic-addon1">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-user"></i></span>
+                                        <input name="lastname" type="text" class="form-control" placeholder="Lastname"
+                                            aria-label="Business" aria-describedby="basic-addon1"  required>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-suitcase"></i></span>
+                                        <div class="form-floating">
+                                            <input name="businessname" type="text" class="form-control"
+                                                placeholder="Business Name" aria-label="Business"
+                                                aria-describedby="basic-addon1" id="floatingInput"  required>
+                                            <label for="floatingInput">Business Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-envelope"></i></span>
+                                        <input name="email" type="text" class="form-control" placeholder="Email Address"
+                                            aria-label="Business" aria-describedby="basic-addon1"  required>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-phone"></i></span>
+                                        <input name="phonenumber" type="tel" class="form-control"
+                                            placeholder="Phone Number" aria-label="Business"
+                                            aria-describedby="basic-addon1" >
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <label class="input-group-text" for="country">Country</label>
+                                        <select name="country" class="form-select" id="inputGroupSelect01" 
+                                            required>
+                                            <option selected>Select Country...</option>
+                                            <option value="Nigeria">Nigeria</option>
+                                            <option value="United Kingdom">United Kingdom</option>
+                                        </select>
+                                        <label class="input-group-text" for="state">State</label>
+                                        <select name="state" class="form-select" id="inputGroupSelect01" 
+                                            required>
+                                            <option selected>Select State...</option>
+                                            <option value="Abia">Abia</option>
+                                            <option value="Adamawa">Adamawa</option>
+                                            <option value="Akwa Ibom">Akwa Ibom</option>
+                                            <option value="Anambra">Anambra</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-suitcase"></i></span>
+                                        <input name="address" type="text" class="form-control" placeholder="Address"
+                                            aria-label="Business" aria-describedby="basic-addon1"  required>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <label class="input-group-text" for="inputGroupFile01">Company Logo</label>
+                                        <input name="companylogo" type="file" class="form-control" id="companyLogo"
+                                          required>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-user"></i></span>
+                                        <input name="password" type="password" class="form-control"
+                                            placeholder="Password" aria-label="Business" aria-describedby="basic-addon1"
+                                          required>
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-user"></i></span>
+                                        <input name="confirmpassword" type="password" class="form-control"
+                                            placeholder="Confirm Password" aria-label="Business"
+                                            aria-describedby="basic-addon1"  required>
+                                    </div>
+                                    <div>
+                                        <button mat-button matStepperNext class="btn-outline-success">Next</button>
+                                      </div>
+                                </form>
                             </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i></span>
-                                <input type="text" class="form-control" placeholder="Email Address"
-                                    aria-label="Business" aria-describedby="basic-addon1">
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel> Business Information </ng-template>
+                            <mat-form-field>
+                                <mat-label>Business Address</mat-label>
+                                <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, London, UK">
+                            </mat-form-field>
+                            <div>
+                                <button mat-button matStepperPrevious class="btn-outline-success">Back</button>
+                                <button mat-button matStepperNext class="btn-outline-success">Next</button>
                             </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
-                                <input type="tel" class="form-control" placeholder="Phone Number" aria-label="Business"
-                                    aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3">
-                                <label class="input-group-text" for="country">Country</label>
-                                <select class="form-select" id="inputGroupSelect01">
-                                    <option selected>Select Country...</option>
-                                    <option value="Nigeria">Nigeria</option>
-                                    <option value="United Kingdom">United Kingdom</option>
-                                </select>
-                                <label class="input-group-text" for="state">State</label>
-                                <select class="form-select" id="inputGroupSelect01">
-                                    <option selected>Select State...</option>
-                                    <option value="Abia">Abia</option>
-                                    <option value="Adamawa">Adamawa</option>
-                                    <option value="Akwa Ibom">Akwa Ibom</option>
-                                    <option value="Anambra">Anambra</option>
-                                </select>
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-suitcase"></i></span>
-                                <input type="text" class="form-control" placeholder="Address" aria-label="Business"
-                                    aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3">
-                                <label class="input-group-text" for="inputGroupFile01">Company Logo</label>
-                                <input type="file" class="form-control" id="companyLogo">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                                <input type="password" class="form-control" placeholder="Password" aria-label="Business"
-                                    aria-describedby="basic-addon1">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                                <input type="password" class="form-control" placeholder="Confirm Password" aria-label="Business"
-                                    aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3">
-                                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
-                              </div>
                         </form>
-                    </div>
-                </div>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Done</ng-template>
+                        <p>You are now done.</p>
+                        <div class="input-group mb-3">
+                            <button type="submit" routerLink="/dashboard" class="btn btn-outline-success"
+                                style="width: 100%;">Sign Up</button>
+                        </div>
+                        <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button (click)="stepper.reset()">Reset</button>
+                        </div>
+                    </mat-step>
+                </mat-stepper>
             </div>
         </div>
     </div>

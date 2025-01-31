@@ -5,30 +5,32 @@
             <div class="col-md-6">
                 <div class="card login-card">
                     <div class="card-title">
-                        <h2>Login</h2>
-                        <p>or <a routerLink="/signup" routerLinkActive="active" ariaCurrentWhenActive="page">Sign Up</a>
+                        <div>
+                            <img src="logs-logo-01.png" class="user-img img-fluid" style="width: 100px; height: 100px;">
+                        </div>
+                        <p>Login or <a routerLink="/signup">Sign Up</a>
                             to Get Started</p>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form (ngSubmit)="login(loginInfo)" #loginInfo="ngForm">
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-suitcase"></i></span>
+                                <span class="input-group-text" id="basic-addon1"><fa-icon [icon]="faEnvelope"></fa-icon></span>
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" placeholder="Email Address"
-                                        aria-label="Email" aria-describedby="basic-addon1" id="floatingInput">
+                                    <input name="email" type="email" class="form-control" placeholder="Email Address"
+                                        aria-label="Email" aria-describedby="basic-addon1" id="floatingInput" ngModel required>
                                     <label for="floatingInput">Email Address</label>
                                 </div>
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-suitcase"></i></span>
+                                <span class="input-group-text" id="basic-addon1"><fa-icon [icon]="faKey"></fa-icon></span>
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" placeholder="Password" aria-label="Password"
-                                        aria-describedby="basic-addon1" id="floatingInput">
+                                    <input name="password" type="password" class="form-control" placeholder="Password" aria-label="Password"
+                                        aria-describedby="basic-addon1" id="floatingInput" ngModel required>
                                     <label for="floatingInput">Password</label>
                                 </div>
                             </div>
                             <div class="input-group mb-3">
-                                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                                <button type="submit" routerLink="/dashboard" class="btn btn-outline-success" style="width: 100%;">Login</button>
                             </div>
                         </form>
                     </div>

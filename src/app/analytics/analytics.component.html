@@ -1,0 +1,118 @@
+<div class="container-fluid analytics-container">
+    <div class="container overview-section">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div>
+                        <h6>Inventory Value</h6>
+                    </div>
+                    <h1>₦0</h1>
+                    <p style="font-size: smaller;"><span style="color: green">0% </span>from last week</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div>
+                        <h6>Total Products</h6>
+                    </div>
+                    <h1>0</h1>
+                    <p style="font-size: smaller;"><span style="color: green">0% </span>from last week</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div>
+                        <h6>Total Orders</h6>
+                    </div>
+                    <h1>0</h1>
+                    <p style="font-size: smaller;"><span style="color: green">0% </span>from last week</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div>
+                        <h6>Recent Orders</h6>
+                    </div>
+                    <h1>0</h1>
+                    <p style="font-size: smaller;"><span style="color: green">0% </span>from last week</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div>
+                        <h6>Delivered</h6>
+                    </div>
+                    <h1>0</h1>
+                    <p style="font-size: smaller;"><span style="color: green">0% </span>from last week</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div>
+                        <h6>Notifications</h6>
+                    </div>
+                    <h1>0</h1>
+                    <p style="font-size: smaller;"><span style="color: green">0% </span>from last week</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div>
+                        <h6>Out of Stock</h6>
+                    </div>
+                    <h1>0</h1>
+                    <p style="font-size: smaller;"><span style="color: green">0% </span>from last week</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container top-selling-products-section">
+        <div class="card mat-elevation-z8">
+            <div class="card">
+                <h6>Top Selling Products</h6>
+            </div>
+            <table mat-table [dataSource]="dataSource">
+          
+              <!-- Position Column -->
+              <ng-container matColumnDef="product">
+                <th mat-header-cell *matHeaderCellDef> Product </th>
+                <td mat-cell *matCellDef="let element"> {{element.product}} </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> Price </th>
+                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+              </ng-container>
+          
+              <!-- Weight Column -->
+              <ng-container matColumnDef="order">
+                <th mat-header-cell *matHeaderCellDef> Order </th>
+                <td mat-cell *matCellDef="let element"> {{element.order}} </td>
+              </ng-container>
+          
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="stock">
+                <th mat-header-cell *matHeaderCellDef> Stock </th>
+                <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+          
+    </div>
+
+</div>

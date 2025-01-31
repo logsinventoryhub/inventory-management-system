@@ -1,0 +1,84 @@
+<!--Category Section Main Container-->
+<div class="container-fluid category-container">
+
+    <!--Category Section Page Indicator Section-->
+    <div class="container dashboard-section-nav">
+        <h6>All Categories</h6>
+    </div>
+
+    <!--Category Table Main Container-->
+    <div class="container">
+
+        <div class="card mat-elevation-z8">
+            <!--Table Actions: Search, Add Item-->
+            <nav class="navbar navbar-expand-lg bg-body-tertiary" style="padding: 20px;">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <button class="nav-link mat-flat-button action-btn" routerLink="newcategory">Create Category</button>
+                            </li>
+                        </ul>
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+
+            <!--Angular Material Table To Display Inventory Product Categories-->
+            <table mat-table [dataSource]="dataSource">
+
+                <!-- Category Column -->
+                <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef> Category </th>
+                    <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                </ng-container>
+
+                <!-- Category ID Column -->
+                <ng-container matColumnDef="categoryid">
+                    <th mat-header-cell *matHeaderCellDef> Category ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.categoryid}} </td>
+                </ng-container>
+
+                <!-- Image Column -->
+                <ng-container matColumnDef="image">
+                    <th mat-header-cell *matHeaderCellDef> Image </th>
+                    <td mat-cell *matCellDef="let element"> {{element.image}} </td>
+                </ng-container>
+
+                <!-- Rank Column -->
+                <ng-container matColumnDef="rank">
+                    <th mat-header-cell *matHeaderCellDef> rank </th>
+                    <td mat-cell *matCellDef="let element"> {{element.rank}} </td>
+                </ng-container>
+
+                <!-- Created On Column -->
+                <ng-container matColumnDef="createdon">
+                    <th mat-header-cell *matHeaderCellDef> Created On </th>
+                    <td mat-cell *matCellDef="let element"> {{element.createdon}} </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let element"> {{element.action}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,40 @@
+.login-card {
+    padding: 0;
+    margin-top: 100px;
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+}
+
+@media only screen and (max-width: 600px) {
+    .login-card {
+        padding: 15px;
+    }
+
+    .login-card-gallery {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .login-card-form {
+        padding: 30px;
+        padding-top: 10px;
+    }
+    
+}
+
+.login-form-field {
+    width: 100%;
+}
+
+.login-card-form label {
+    font-weight: 500;
+}
+
+.login-card-form .rem-and-forget-grid-list {
+    padding: 0 !important;
+}
+
+.login-card-form .remember-me-checkbox {
+    font-weight: 500;
+}

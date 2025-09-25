@@ -1,0 +1,147 @@
+<!-- NEW WAREHOUSE ADDRESS -->
+<div class="page-wrapper">
+  <!-- Page Content -->
+  <div class="page-content">
+    <div class="container-xxl">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header p-3">
+              <h4 class="card-title mb-0">Add New Store Address</h4>
+            </div>
+
+            <!-- Reactive Form -->
+            <form
+              [formGroup]="addWarehouseForm"
+              (ngSubmit)="addWarehouse()"
+              class="p-3"
+            >
+              <div class="card-body">
+                <div class="row g-4">
+                  <!-- Country -->
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="country" class="form-label"
+                        >Country</label
+                      >
+                      <select
+                        id="country"
+                        class="form-select"
+                        formControlName="country"
+                        required
+                      >
+                        <option value="" disabled>Select country</option>
+                        <option
+                          *ngFor="let country of countries"
+                          [value]="country.name"
+                        >
+                          {{ country.name }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="
+                          addWarehouseForm.get('country')?.invalid &&
+                          addWarehouseForm.get('country')?.touched
+                        "
+                        class="text-danger small"
+                      >
+                        Country is required.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- State -->
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="state" class="form-label"
+                        >State</label
+                      >
+                      <select
+                        id="state"
+                        class="form-select"
+                        formControlName="state"
+                        required
+                      >
+                        <option value="" disabled>Select state</option>
+                        <option
+                          *ngFor="let state of filteredStates"
+                          [value]="state.name"
+                        >
+                          {{ state.name }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="
+                          addWarehouseForm.get('state')?.invalid &&
+                          addWarehouseForm.get('state')?.touched
+                        "
+                        class="text-danger small"
+                      >
+                        State is required.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Address -->
+                  <div class="col-lg-12">
+                    <div class="mb-3">
+                      <label for="street" class="form-label"
+                        >Street</label
+                      >
+                      <input
+                        type="text"
+                        id="street"
+                        class="form-control"
+                        placeholder="Enter Address"
+                        formControlName="street"
+                        required
+                      />
+                      <div
+                        *ngIf="
+                          addWarehouseForm.get('street')?.invalid &&
+                          addWarehouseForm.get('street')?.touched
+                        "
+                        class="text-danger small"
+                      >
+                        Address is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="px-3 pb-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary w-100"
+                  [disabled]="addWarehouseForm.invalid"
+                >
+                  Add Store
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center text-sm-start d-print-none">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-0 rounded-bottom-0">
+              <div class="card-body">
+                <p class="text-muted mb-0">© Logsinventory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- Loading Spinner -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

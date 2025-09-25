@@ -1,0 +1,87 @@
+<!-- CHECKOUT PAGE MAIN CONTAINER-->
+<div class="container-fluid checkout-container">
+    <!-- CHECKOUT PAGE TOP HERO SECTION -->
+    <div class="container-fluid checkout-container-hero-section">
+        <div class="container">
+            <section>
+                <pre><span style="color: #1A33FF;">LOGS</span> <span>   >   </span> <span>Checkout</span></pre>
+                <h1>Checkout</h1>
+            </section>
+        </div>
+    </div>
+
+    <!-- CHECKOUT PAGE BODY SECTION -->
+     <div class="container mt-5 mb-5">
+        <section>
+            <mat-stepper linear #stepper>
+                <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+                  <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Account</ng-template>
+                    <div class="mt-5 mb-5">
+                        <p>To place your order now, log in to your existing account or sign up</p>
+                        <div class="mt-3 mb-3">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <button class="btn btn-outline-success" type="submit" (click)="openCustomerLoginDialog()">SIGN IN</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-outline-success" type="submit" (click)="openCustomerSignUpDialog()">SIGN UP</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div>
+                      <button mat-button matStepperNext>Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+                  <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>Address</ng-template>
+                    <div class="mt-5 mb-5">
+                        <h3>Select Saved Address</h3>
+                        <div class="mt-3 mb-3">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <button class="btn btn-outline-success" type="submit">Add New Address</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button matStepperNext>Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable">
+                    <form [formGroup]="thirdFormGroup">
+                      <ng-template matStepLabel>Payment</ng-template>
+                      <div class="mt-5 mb-5">
+                        <h3>Choose Payment Method</h3>
+                        <div>
+                            <img src="paystack.png" alt="Paystack Logo">
+                        </div>
+                    </div>
+                      
+                      <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                      </div>
+                    </form>
+                  </mat-step>
+                <mat-step>
+                  <ng-template matStepLabel>Confirm</ng-template>
+                  <p>You are now done.</p>
+                  <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="stepper.reset()">Reset</button>
+                  </div>
+                </mat-step>
+              </mat-stepper>
+        </section>
+     </div>
+    
+</div>

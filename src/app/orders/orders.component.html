@@ -1,0 +1,196 @@
+<!--Orders Section Main Container-->
+<div class="page-wrapper">
+  <div class="page-content">
+    <div class="container-xxl">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h4 class="card-title">Sales Orders</h4>
+                </div>
+                <div class="col-auto">
+                  <form class="row g-2">
+                    <div class="col-auto">
+                      <a
+                        class="btn bg-primary-subtle text-primary dropdown-toggle d-flex align-items-center arrow-none"
+                        data-bs-toggle="dropdown"
+                        href="#"
+                        role="button"
+                        aria-haspopup="false"
+                        aria-expanded="false"
+                        data-bs-auto-close="outside"
+                      >
+                        <i class="iconoir-filter-alt me-1"></i> Filter
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-start">
+                        <div class="p-2">
+                          <div class="form-check mb-2" *ngFor="let filter of ['All', 'Date', 'Colour', 'Type', 'Brand', 'Weight', 'Location']; let i = index">
+                            <input type="checkbox" class="form-check-input" [id]="'filter-' + i" checked />
+                            <label class="form-check-label" [for]="'filter-' + i">{{ filter }}</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <button type="button" class="btn btn-primary" routerLink="/dashboard/neworder">
+                        <i class="fa-solid fa-plus me-1"></i> New Order
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="card-body pt-0">
+              <div class="table-responsive">
+                <table class="table mb-0 checkbox-all" id="datatable_1">
+                  <thead class="table-light">
+                    <tr>
+                      <th style="width: 16px">
+                        <div class="form-check mb-0 ms-n1">
+                          <input type="checkbox" class="form-check-input" id="select-all" />
+                        </div>
+                      </th>
+                      <th class="ps-0">ID</th>
+                      <th>Product</th>
+                      <th>Customer</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th>Total Price</th>
+                      <th>Assigned To</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th class="text-end">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let sale of orders">
+                      <td style="width: 16px">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" />
+                        </div>
+                      </td>
+                      <td class="ps-0 text-truncate" style="max-width: 200px">
+                        {{ sale.order_id || 'N/A' }}
+                      </td>
+                      <td>{{ sale.product || 'N/A' }}</td>
+                      <td>{{ sale.last_name || 'N/A' }} {{ sale.first_name || '' }}</td>
+                      <td>{{ sale.quantity_sold || 'N/A' }}</td>
+                      <td>
+                        ₦{{ (sale.discount_price && sale.discount_price != 0 ? sale.discount_price : sale.unit_price) | number: '1.2-2' }}
+                      </td>
+                      <td>₦{{ sale.total_price | number: '1.2-2' }}</td>
+                      <td>{{ sale.assigned_to || 'N/A' }}</td>
+                      <td>
+                        <span
+                          class="badge"
+                          [ngClass]="{
+                            'bg-success-subtle text-success': sale.payment_status === 'paid',
+                            'bg-primary-subtle text-primary': sale.payment_status === 'partially paid',
+                            'bg-danger-subtle text-danger': sale.payment_status === 'unpaid'
+                          }"
+                        >
+                          <i
+                            class="fas me-1"
+                            [ngClass]="{
+                              'fa-check': sale.payment_status === 'paid',
+                              'fa-hourglass-half': sale.payment_status === 'partially paid',
+                              'fa-times': sale.payment_status === 'unpaid'
+                            }"
+                          ></i>
+                          {{ sale.payment_status || 'N/A' }}
+                        </span>
+                      </td>
+                      <td>{{ sale.created_at | date: 'medium' }}</td>
+                      <td class="text-end">
+                        <a (click)="openEditModal(sale)"><i class="las la-pen text-secondary fs-18"></i></a>
+                        <a (click)="deleteItem(sale.id)"><i class="las la-trash-alt text-secondary fs-18"></i></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer text-center text-sm-start d-print-none">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-0 rounded-bottom-0">
+              <div class="card-body">
+                <p class="text-muted mb-0">© Logsinventory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+
+<!-- Bootstrap Update Sale Order Modal -->
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form (ngSubmit)="saveChanges()">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Sale Order</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="product">Product</label>
+            <select id="product" name="product" class="form-select" [(ngModel)]="selectedSale.product" required>
+              <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="customer">Customer</label>
+            <select id="customer" name="customer" class="form-select" [(ngModel)]="selectedSale.customer" required>
+              <option *ngFor="let customer of customers" [value]="customer.id">
+                {{ customer.last_name }} {{ customer.first_name }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label>Quantity</label>
+            <input [(ngModel)]="selectedSale.quantity_sold" name="quantity" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label>Unit Price</label>
+            <input [(ngModel)]="selectedSale.unit_price" name="unit_price" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label>Total Price</label>
+            <input [(ngModel)]="selectedSale.total_price" name="total_price" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="assigned_to">Assigned To</label>
+            <select id="assigned_to" name="assigned_to" class="form-select" [(ngModel)]="selectedSale.assigned_to" required>
+              <option *ngFor="let user of users" [value]="user.id">{{ user.username }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label>Payment Status</label>
+            <select id="payment_status" name="payment_status" class="form-select" [(ngModel)]="selectedSale.payment_status" required>
+              <option value="paid">Paid</option>
+              <option value="partially_paid">Partially Paid</option>
+              <option value="unpaid">Unpaid</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

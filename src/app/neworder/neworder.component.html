@@ -1,0 +1,395 @@
+<!--New Product Section Main Container-->
+<div class="page-wrapper">
+  <!-- Page Content-->
+  <div class="page-content">
+    <div class="container-xxl">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col p-3">
+                  <h4 class="card-title">Add New Sale Order</h4>
+                </div>
+              </div>
+            </div>
+            <form (ngSubmit)="addNewOrder(newOrderData)" #newOrderData="ngForm">
+              <div class="card-body pt-3">
+                <div class="row">
+                  <!-- Product Name -->
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Product</label
+                      >
+                      <div class="col-sm-10">
+                        <select
+                          name="product"
+                          class="form-select"
+                          [(ngModel)]="selectedProductId"
+                          (ngModelChange)="onProductChange($event)"
+                          required
+                        >
+                          <option [ngValue]="undefined" disabled>
+                            - Select Product -
+                          </option>
+                          <option
+                            *ngFor="let prodt of products"
+                            [ngValue]="prodt.id"
+                          >
+                            {{ prodt.name }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Customer</label
+                      >
+                      <div class="col-sm-10">
+                        <select
+                          name="customer"
+                          class="form-select"
+                          ngModel
+                          required
+                        >
+                          <option [ngValue]="undefined" disabled>
+                            - Select Customer -
+                          </option>
+                          <option
+                            *ngFor="let customer of customers"
+                            [ngValue]="customer.id"
+                          >
+                            {{ customer.last_name }} {{ customer.first_name }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Payment Status</label
+                      >
+                      <div class="col-sm-10">
+                        <select
+                          name="payment_status"
+                          class="form-select"
+                          [(ngModel)]="payment_status"
+                          required
+                        >
+                          <option [ngValue]="undefined" disabled>
+                            - Select Payment Status -
+                          </option>
+                          <option [ngValue]="'paid'">Paid</option>
+                          <option [ngValue]="'unpaid'">Unpaid</option>
+                          <option [ngValue]="'partially paid'">
+                            Partially Paid
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Amount Paid (conditionally shown) -->
+                  <div
+                    class="col-lg-6"
+                    *ngIf="payment_status === 'partially paid'"
+                  >
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Amount Paid</label
+                      >
+                      <div class="col-sm-10">
+                        <div class="input-group">
+                          <span class="input-group-text">₦</span>
+                          <input
+                            name="amount_paid"
+                            class="form-control"
+                            type="number"
+                            placeholder="Enter Amount Paid"
+                            ngModel
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Balance (conditionally shown) -->
+                  <div
+                    class="col-lg-6"
+                    *ngIf="payment_status === 'partially paid'"
+                  >
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Balance</label
+                      >
+                      <div class="col-sm-10">
+                        <div class="input-group">
+                          <span class="input-group-text">₦</span>
+                          <input
+                            name="balance"
+                            class="form-control"
+                            type="number"
+                            placeholder="Enter Balance"
+                            ngModel
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Unit Price with ₦ -->
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Unit Price</label
+                      >
+                      <div class="col-sm-10">
+                        <div class="input-group">
+                          <span class="input-group-text">₦</span>
+                          <input
+                            name="unit_price"
+                            class="form-control"
+                            type="number"
+                            placeholder="Unit Price"
+                            [(ngModel)]="unit_price"
+                            (ngModelChange)="calculateSaleTotalPrice()"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Discount Price with ₦ -->
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Discount Price</label
+                      >
+                      <div class="col-sm-10">
+                        <div class="input-group">
+                          <span class="input-group-text">₦</span>
+                          <input
+                            name="discount_price"
+                            class="form-control"
+                            type="number"
+                            placeholder="Discount Price"
+                            [(ngModel)]="discount_price"
+                            (ngModelChange)="calculateSaleTotalPrice()"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Quantity Sold -->
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Quantity Sold</label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          name="quantity_sold"
+                          class="form-control"
+                          type="number"
+                          placeholder="Quantity Sold"
+                          [(ngModel)]="quantity_sold"
+                          (ngModelChange)="calculateSaleTotalPrice()"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Total Price with ₦ and formatting -->
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Total Price</label
+                      >
+                      <div class="col-sm-10">
+                        <div class="input-group">
+                          <span class="input-group-text">₦</span>
+                          <input
+                            name="total_price"
+                            class="form-control"
+                            type="text"
+                            [value]="total_price | number : '1.2-2'"
+                            readonly
+                            disabled
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Add Order</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center text-sm-start d-print-none">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-0 rounded-bottom-0">
+              <div class="card-body">
+                <p class="text-muted mb-0">© Logsinventory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+
+<!-- Receipt Modal -->
+<div
+  class="modal fade"
+  id="receiptModal"
+  tabindex="-1"
+  aria-labelledby="receiptModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+  >
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <!-- Receipt Content -->
+        <div id="printSection" class="bg-white">
+          <!-- Invoice Banner with Business Name -->
+          <div
+            class="bg-primary text-white p-4 d-flex justify-content-between align-items-center"
+          >
+            <div>
+              <h4 class="fw-bold mb-1 text-uppercase">
+                {{ business || "Your Business Name" }}
+              </h4>
+              <small class="d-block">{{
+                business_address || "Your Business Address"
+              }}</small>
+              <small class="d-block">Invoice #{{ order_id || "00000" }}</small>
+            </div>
+            <div class="text-end">
+              <div class="fw-bold">Issue Date:</div>
+              <div>{{ date | date : "medium" }}</div>
+            </div>
+          </div>
+
+          <!-- Billing & Shipping Info -->
+          <div class="p-4 bg-light">
+            <div class="row g-4">
+              <div class="col-md-4">
+                <h6 class="fw-bold">Invoice To</h6>
+                <p class="mb-0 fw-medium">{{ name || "Client Name" }}</p>
+                <p class="mb-0 text-muted">--</p>
+                <p class="mb-0">{{ phone || "N/A" }}</p>
+              </div>
+
+              <div class="col-md-4">
+                <h6 class="fw-bold">Billed To</h6>
+                <p class="mb-0">{{ street || "Street Address" }}</p>
+                <p class="mb-0">{{ address || "City, State, Zip" }}</p>
+                <p class="mb-0">{{ phone || "N/A" }}</p>
+              </div>
+
+              <div class="col-md-4">
+                <h6 class="fw-bold">Shipped To</h6>
+                <p class="mb-0">{{ street || "Street Address" }}</p>
+                <p class="mb-0">{{ address || "City, State, Zip" }}</p>
+                <p class="mb-0">{{ phone || "N/A" }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Items Table -->
+          <div class="table-responsive p-4">
+            <table class="table table-bordered align-middle">
+              <thead class="table-primary text-center text-dark">
+                <tr>
+                  <th>Description</th>
+                  <th>Qty</th>
+                  <th>Unit Price</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                <tr>
+                  <td class="fw-semibold">{{ product || "Product Name" }}</td>
+                  <td>{{ quantity || 0 }}</td>
+                  <td>₦{{ amount | number : "1.2-2" }}</td>
+                  <td>₦{{ total | number : "1.2-2" }}</td>
+                </tr>
+              </tbody>
+              <tfoot class="table-light fw-bold text-end">
+                <tr>
+                  <td colspan="3">Subtotal</td>
+                  <td>₦{{ total | number : "1.2-2" }}</td>
+                </tr>
+                <!--<tr>
+                  <td colspan="3">VAT (7.5%)</td>
+                  <td>₦{{ vat | number: '1.2-2' }}</td>
+                </tr>-->
+                <tr class="table-primary">
+                  <td colspan="3">Total</td>
+                  <td>₦{{ total | number : "1.2-2" }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- Terms and Signature -->
+          <div class="px-4 pb-4">
+            <h6 class="fw-bold">Terms & Conditions</h6>
+            <ul class="small ps-3">
+              <li>All accounts are to be paid within 7 days of invoice.</li>
+              <li>Payments can be made via bank transfer, card, or cash.</li>
+              <li>Overdue payments may attract late fees.</li>
+            </ul>
+          </div>
+
+          <div
+            class="d-flex justify-content-between align-items-center px-4 py-3 bg-light"
+          >
+            <div class="fw-medium">Thank you for doing business with us.</div>
+            <div class="text-end">
+              <div class="fw-bold">Account Manager</div>
+              <div class="fst-italic text-primary">{{ business }}</div>
+              <div class="border-top mt-1" style="width: 150px">Signature</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer bg-white">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-primary" (click)="printReceipt()">Print</button>
+        <button class="btn btn-outline-danger" (click)="printAsPDF()">
+          Save as PDF
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

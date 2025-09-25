@@ -1,0 +1,216 @@
+<!--New Product Section Main Container-->
+<div class="page-wrapper">
+  <!-- Page Content-->
+  <div class="page-content">
+    <div class="container-xxl">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col p-3">
+                  <h4 class="card-title">Add New Purchase Order</h4>
+                </div>
+              </div>
+            </div>
+            <form (ngSubmit)="addNewOrder(newOrderData)" #newOrderData="ngForm">
+              <div class="card-body pt-3">
+                <div class="row">
+                  <!-- Product Name -->
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Product</label
+                      >
+                      <div class="col-sm-10">
+                        <select
+                          name="product"
+                          class="form-select"
+                          [(ngModel)]="selectedProductId"
+                          (ngModelChange)="onProductChange($event)"
+                          required
+                        >
+                          <option [ngValue]="undefined" disabled>
+                            - Select Product -
+                          </option>
+                          <option
+                            *ngFor="let product of products"
+                            [ngValue]="product.id"
+                          >
+                            {{ product.name }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                    <div class="col-lg-6">
+                      <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label text-start"
+                          >Order Quantity</label
+                        >
+                        <div class="col-sm-10">
+                          <input
+                            name="order_quantity"
+                            class="form-control"
+                            type="number"
+                            placeholder="Order Quantity"
+                            [(ngModel)]="order_quantity"
+                            (ngModelChange)="calculatePurchaseTotalCost()"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label text-start"
+                          >Supplier</label
+                        >
+                        <div class="col-sm-10">
+                          <select
+                            name="supplier"
+                            class="form-select"
+                            ngModel
+                            required
+                          >
+                            <option [ngValue]="undefined" disabled>
+                              - Select Supplier -
+                            </option>
+                            <option
+                              *ngFor="let supplier of suppliers"
+                              [ngValue]="supplier.id"
+                            >
+                              {{ supplier.name }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3 row">
+                      <label
+                        class="form-label col-sm-2 col-form-label text-start"
+                        >Location</label
+                      >
+                      <div class="col-sm-10">
+                        <select
+                          name="location"
+                          class="form-select"
+                          ngModel
+                          required
+                        >
+                          <option value="" disabled selected>
+                            - select location -*
+                          </option>
+                          <option
+                            *ngFor="let location of locations"
+                            value="{{ location.id }}"
+                          >
+                            {{ location.street }}, {{ location.state }},
+                            {{ location.country }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label text-start"
+                          >Delivery Status</label
+                        >
+                        <div class="col-sm-10">
+                          <select
+                            name="delivery_status"
+                            class="form-select"
+                            ngModel
+                            required
+                          >
+                            <option [ngValue]="undefined" disabled>
+                              - Select Delivery Status -
+                            </option>
+                            <option [ngValue]="'pending'">Pending</option>
+                            <option [ngValue]="'received'">Received</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Unit Cost with ₦ -->
+                    <div class="col-lg-6">
+                      <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label text-start"
+                          >Unit Cost</label
+                        >
+                        <div class="col-sm-10">
+                          <div class="input-group">
+                            <span class="input-group-text">₦</span>
+                            <input
+                              name="unit_cost"
+                              class="form-control"
+                              type="number"
+                              placeholder="Unit Cost"
+                              [(ngModel)]="unit_cost"
+                              (ngModelChange)="calculatePurchaseTotalCost()"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Total Cost with ₦ and formatting -->
+                    <div class="col-lg-6">
+                      <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label text-start"
+                          >Total Cost</label
+                        >
+                        <div class="col-sm-10">
+                          <div class="input-group">
+                            <span class="input-group-text">₦</span>
+                            <input
+                              name="total_cost"
+                              class="form-control"
+                              type="text"
+                              [value]="total_cost | number : '1.2-2'"
+                              readonly
+                              disabled
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+              <div class="p-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Add Order</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center text-sm-start d-print-none">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-0 rounded-bottom-0">
+              <div class="card-body">
+                <p class="text-muted mb-0">© Logsinventory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+

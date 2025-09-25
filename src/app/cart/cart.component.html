@@ -1,0 +1,130 @@
+<!-- Cart Hero Section -->
+<header class="hero-header bg-dark text-white d-flex align-items-center justify-content-center py-5 mb-4">
+  <div class="container text-center">
+    <h1 class="display-4 fw-bold mb-2">
+      <i class="fas fa-shopping-cart me-2"></i> Your Shopping Cart
+    </h1>
+    <p class="lead mb-0">
+      Review your items before checkout. Update quantities or remove products as needed.
+    </p>
+  </div>
+</header>
+
+<!-- Cart Container -->
+<div class="container my-5 shopping-cart">
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="#">Products</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Cart</li>
+    </ol>
+  </nav>
+
+  <!-- Header message -->
+  <div class="alert alert-warning d-flex align-items-center" role="alert">
+    <i class="bi bi-clock me-2"></i>
+    Here is a list of products you've added to your cart.
+  </div>
+
+  <!-- Cart Card -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title mb-4">Shopping Cart</h5>
+
+      <!-- Cart Items Table -->
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cartItems">
+              <td>
+                <div class="d-flex align-items-center">
+                  <img
+                    [src]="item.image ? 'https://logsinventory.com/LogsBackendFiles/uploads/products/' + item.image : 'for_sale_2.png'"
+                    alt="{{ item.product_name }}"
+                    width="60"
+                    class="me-3 rounded"
+                  />
+                  <div>
+                    <div class="fw-bold">{{ item.product_name }}</div>
+                    <div class="text-muted small">Category: {{ item.category_name }}</div>
+                    <div class="text-success small">In Stock ({{ item.total_quantity }} Pcs)</div>
+                  </div>
+                </div>
+              </td>
+              <td>₦{{ item.price }}</td>
+              <td>
+                <div class="input-group input-group-sm quantity-group">
+                  <button class="btn btn-outline-secondary" (click)="decrement(item)">-</button>
+                  <input type="text" class="form-control text-center" [value]="item.quantity" readonly />
+                  <button class="btn btn-outline-secondary" (click)="increment(item)">+</button>
+                </div>
+              </td>
+              <td>₦{{ item.price * item.quantity | number: '1.2-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Summary Section -->
+      <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap">
+        <div class="text-muted">
+          <button class="btn btn-outline-primary" (click)="clearCart()">Clear Cart</button>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="me-3 fw-bold">Sub Total: ₦{{ getSubtotal() | number: '1.2-2' }}</div>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+            Place Order
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Continue Shopping -->
+  <div class="mt-3 text-end">
+    <a routerLink="/cart/{{ businessId }}/{{ business }}" class="btn btn-outline-secondary">
+      <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+    </a>
+  </div>
+</div>
+
+<!-- Sleek Checkout Modal -->
+<div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="checkoutModalLabel"><i class="fas fa-user-check me-2"></i> Checkout Details</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form (ngSubmit)="submitOrder(newOrderData)" #newOrderData="ngForm">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" [(ngModel)]="checkoutForm.first_name" name="first_name" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" [(ngModel)]="checkoutForm.last_name" name="last_name" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="tel" id="phone" [(ngModel)]="checkoutForm.phone" name="phone" class="form-control" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">Confirm Order</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

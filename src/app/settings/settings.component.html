@@ -1,1 +1,243 @@
-<p>settings works!</p>
+<div class="page-wrapper">
+
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-xxl">
+
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+                                    <div class="d-flex align-items-center flex-row flex-wrap">
+                                        <div class="">
+                                            <h5 class="fw-semibold fs-22 mb-1">{{username}}</h5>
+                                            <p class="mb-0 text-muted fw-medium">Username</p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+
+                                <div class="col-lg-4 ms-auto align-self-center">
+                                    <div class="d-flex justify-content-center">
+                                        <div
+                                            class="border-dashed rounded border-theme-color p-2 me-2 flex-grow-1 flex-basis-0">
+                                            <h5 class="fw-semibold fs-22 mb-1">{{business}}</h5>
+                                            <p class="text-muted mb-0 fw-medium">Business</p>
+                                        </div>
+                                        <div
+                                            class="border-dashed rounded border-theme-color p-2 me-2 flex-grow-1 flex-basis-0">
+                                            <h5 class="fw-semibold fs-22 mb-1">{{role}}</h5>
+                                            <p class="text-muted mb-0 fw-medium">Role</p>
+                                        </div>
+                                        <div
+                                            class="border-dashed rounded border-theme-color p-2 me-2 flex-grow-1 flex-basis-0">
+                                            <h5 class="fw-semibold fs-22 mb-1"></h5>
+                                            <p class="text-muted mb-0 fw-medium"></p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-4 align-self-center">
+
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                </div> <!--end col-->
+            </div><!--end row-->
+
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h4 class="card-title">Personal Information</h4>
+                                </div><!--end col-->
+                                <div class="col-auto">
+
+                                </div><!--end col-->
+                            </div> <!--end row-->
+                        </div><!--end card-header-->
+                        <div class="card-body pt-0">
+                            <ul class="list-unstyled mb-0">
+                                <li class=""><i class="las la-user me-2 text-secondary fs-22 align-middle"></i>
+                                    <b> First Name </b> : {{first_name}}
+                                </li>
+                                <li class="mt-2"><i class="las la-user me-2 text-secondary fs-22 align-middle"></i>
+                                    <b> Last Name </b> : {{last_name}}
+                                </li>
+                                <li class="mt-2"><i class="las la-phone me-2 text-secondary fs-22 align-middle"></i> <b>
+                                        Phone </b> : {{phone}}</li>
+                                <li class="mt-2"><i class="las la-envelope text-secondary fs-22 align-middle me-2"></i>
+                                    <b> Email </b> : {{email}}
+                                </li>
+                            </ul>
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                </div> <!--end col-->
+                <div class="col-md-8">
+                    <ul class="nav nav-tabs mb-3" role="tablist">
+                        <!--<li class="nav-item">
+                            <a class="nav-link fw-medium active" data-bs-toggle="tab" href="#profile" role="tab"
+                                aria-selected="true">Profile</a>
+                        </li>-->
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium" data-bs-toggle="tab" href="#security" role="tab"
+                                aria-selected="true">Security</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active p-3" id="profile" role="tabpanel">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Change Password</h4>
+                                </div><!--end card-header-->
+                                <form (ngSubmit)="onResetPassword(password_data)" #password_data="ngForm" novalidate>
+                                    <div class="card-body pt-0">
+                                        <div class="form-group mb-3 row">
+                                            <label
+                                                class="col-xl-3 col-lg-3 text-start mb-lg-0 align-self-center form-label">Current
+                                                Password</label>
+                                            <div class="col-lg-9 col-xl-8">
+                                                <input name="current_password" class="form-control" type="password"
+                                                    placeholder="Password" ngModel required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3 row">
+                                            <label
+                                                class="col-xl-3 col-lg-3 text-start mb-lg-0 align-self-center form-label">New
+                                                Password</label>
+                                            <div class="col-lg-9 col-xl-8">
+                                                <input name="password" class="form-control" type="password"
+                                                    placeholder="New Password" ngModel required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3 row">
+                                            <label
+                                                class="col-xl-3 col-lg-3 text-start mb-lg-0 align-self-center form-label">Confirm
+                                                Password</label>
+                                            <div class="col-lg-9 col-xl-8">
+                                                <input name="confirm_password" class="form-control" type="password"
+                                                    placeholder="Re-Password" ngModel required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-9 col-xl-8 offset-lg-3">
+                                                <button type="submit" [disabled]="password_data.invalid"
+                                                    class="btn btn-primary">Change Password</button>
+                                            </div>
+                                        </div>
+                                    </div><!--end card-body-->
+                                </form>
+                            </div><!--end card-->
+                        </div>
+                        <!--<div class="tab-pane p-3" id="security" role="tabpanel">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <h4 class="card-title">Personal Information</h4>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="form-group mb-3 row">
+                                        <label
+                                            class="col-xl-3 col-lg-3 text-start mb-lg-0 align-self-center form-label">First
+                                            Name</label>
+                                        <div class="col-lg-9 col-xl-8">
+                                            <input name="first_name" class="form-control" type="text" value="Rosa">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 row">
+                                        <label
+                                            class="col-xl-3 col-lg-3 text-start mb-lg-0 align-self-center form-label">Last
+                                            Name</label>
+                                        <div class="col-lg-9 col-xl-8">
+                                            <input name="last_name" class="form-control" type="text" value="Dodson">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 row">
+                                        <label
+                                            class="col-xl-3 col-lg-3 text-start mb-lg-0 align-self-center form-label">Country</label>
+                                        <div class="col-lg-9 col-xl-8">
+                                            <select name="country" class="form-select">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 row">
+                                        <label
+                                            class="col-xl-3 col-lg-3 text-start mb-lg-0 align-self-center form-label">State</label>
+                                        <div class="col-lg-9 col-xl-8">
+                                            <select name="state" class="form-select">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 row">
+                                        <label
+                                            class="col-xl-3 col-lg-3 text-start mb-lg-0 align-self-center form-label">City</label>
+                                        <div class="col-lg-9 col-xl-8">
+                                            <input name="city" class="form-control" type="text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 row">
+                                        <label
+                                            class="col-xl-3 col-lg-3 text-start mb-lg-0 align-self-center form-label">Street</label>
+                                        <div class="col-lg-9 col-xl-8">
+                                            <input name="street" class="form-control" type="text" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-3 row">
+                                        <label
+                                            class="col-xl-3 col-lg-3 text-start mb-lg-0 align-self-center form-label">Contact
+                                            Phone</label>
+                                        <div class="col-lg-9 col-xl-8">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="las la-phone"></i></span>
+                                                <input name="phone" type="text" class="form-control" value=""
+                                                    placeholder="Phone" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-9 col-xl-8 offset-lg-3">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div> <!--end col-->
+            </div><!--end row-->
+
+
+        </div><!-- container -->
+        <!--Start Footer-->
+
+        <footer class="footer text-center text-sm-start d-print-none">
+            <div class="container-xxl">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-0 rounded-bottom-0">
+                            <div class="card-body">
+                                <p class="text-muted mb-0">
+                                    © Logsinventory
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!--end footer-->
+    </div>
+    <!-- end page content -->
+</div>
+<!-- end page-wrapper -->

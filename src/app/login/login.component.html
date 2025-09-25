@@ -1,42 +1,79 @@
-<div class="container-fluid login-container">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="card login-card">
-                    <div class="card-title">
-                        <div>
-                            <img src="logs-logo-01.png" class="user-img img-fluid" style="width: 100px; height: 100px;">
-                        </div>
-                        <p>Login or <a routerLink="/signup">Sign Up</a>
-                            to Get Started</p>
-                    </div>
-                    <div class="card-body">
-                        <form (ngSubmit)="login(loginInfo)" #loginInfo="ngForm">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><fa-icon [icon]="faEnvelope"></fa-icon></span>
-                                <div class="form-floating">
-                                    <input name="email" type="email" class="form-control" placeholder="Email Address"
-                                        aria-label="Email" aria-describedby="basic-addon1" id="floatingInput" ngModel required>
-                                    <label for="floatingInput">Email Address</label>
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><fa-icon [icon]="faKey"></fa-icon></span>
-                                <div class="form-floating">
-                                    <input name="password" type="password" class="form-control" placeholder="Password" aria-label="Password"
-                                        aria-describedby="basic-addon1" id="floatingInput" ngModel required>
-                                    <label for="floatingInput">Password</label>
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <button type="submit" routerLink="/dashboard" class="btn btn-outline-success" style="width: 100%;">Login</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3"></div>
+<div class="container-xxl">
+  <div class="row min-vh-100 justify-content-center align-items-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-body p-0 bg-black text-center text-white rounded-top">
+          <div class="p-3">
+            <a class="logo logo-admin d-block mt-0 mb-0" routerLink="/">
+              <img src="logo_II.svg" alt="Logs Logo" class="img-fluid auth-logo" style="width: 100px; height: 100px;">
+            </a>
+            <h4 class="fw-semibold fs-5">Let's Get Started Logs</h4>
+            <p class="text-white mb-3">Sign in to continue to Logs.</p>
+          </div>
         </div>
+
+        <div class="card-body">
+          <form (ngSubmit)="login(loginData)" #loginData="ngForm" novalidate>
+            <!-- Business Name -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="Enter Email"
+                ngModel
+                required
+                autocomplete="organization"
+              >
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="Enter Password"
+                ngModel
+                required
+                autocomplete="current-password"
+              >
+            </div>
+
+            <!-- Remember Me + Forgot -->
+            <!--<div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-input" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">Remember me</label>
+              </div>
+             <a routerLink="/recover-password" class="text-muted small">
+                <i class="dripicons-lock"></i> Forgot password?
+              </a>
+            </div>-->
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+              <button class="btn btn-primary" type="submit" [disabled]="loginData.invalid">
+                Log In <i class="fas fa-sign-in-alt ms-1"></i>
+              </button>
+            </div>
+          </form>
+
+          <!-- Register Link -->
+          <div class="text-center mt-3">
+            <p class="text-muted">
+              Don't have an account?
+              <a routerLink="/signup" class="text-primary ms-1">Register for free</a>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
+
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

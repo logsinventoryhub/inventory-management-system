@@ -1,0 +1,278 @@
+<!--New Product Section Main Container-->
+<div class="page-wrapper">
+  <!-- Page Content-->
+  <div class="page-content">
+    <div class="container-xxl">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col p-3">
+                  <h4 class="card-title">Add New Product</h4>
+                </div>
+              </div>
+              <div class="col-auto">
+                <form class="row g-2">
+                  <div class="col-auto">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      <i class="fa-solid fa-plus me-1"></i> Import Spreadsheet
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <form
+              (ngSubmit)="addNewProduct(newProductData)"
+              #newProductData="ngForm"
+              enctype="multipart/form-data"
+            >
+              <div class="card-body pt-3">
+                <div class="row">
+                  <!-- Left Column -->
+                  <div class="col-lg-6">
+                    <!-- Product Name -->
+                    <div class="mb-3">
+                      <label class="form-label">Product Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        list="productList"
+                        id="productInput"
+                        name="name"
+                        placeholder="Type or select a product"
+                        [(ngModel)]="productName"
+                        required
+                      />
+                      <datalist id="productList">
+                        <option value="">- select option -*</option>
+                      </datalist>
+                    </div>
+
+                    <!-- Cost Price -->
+                    <div class="mb-3">
+                      <label class="form-label">Cost Price</label>
+                      <input
+                        name="cost_price"
+                        class="form-control"
+                        type="number"
+                        placeholder="Price Per Unit"
+                        ngModel
+                        required
+                      />
+                    </div>
+
+                    <!-- Selling Price -->
+                    <div class="mb-3">
+                      <label class="form-label">Selling Price</label>
+                      <input
+                        name="price"
+                        class="form-control"
+                        type="number"
+                        placeholder="Price Per Unit"
+                        ngModel
+                        required
+                      />
+                    </div>
+
+                    <!-- Discount Price -->
+                    <div class="mb-3">
+                      <label class="form-label">Discount Price</label>
+                      <input
+                        name="discount_price"
+                        class="form-control"
+                        type="number"
+                        placeholder="Set Discount Price"
+                        ngModel
+                        required
+                      />
+                    </div>
+
+                    <!-- Stock Alert -->
+                    <div class="mb-3">
+                      <label class="form-label">Stock Alert</label>
+                      <input
+                        name="stock_alert"
+                        class="form-control"
+                        type="number"
+                        placeholder="5"
+                        ngModel
+                        required
+                      />
+                    </div>
+
+                    <!-- Product Image -->
+                    <div class="mb-3">
+                      <label class="form-label">Product Image</label>
+                      <input
+                        name="image"
+                        class="form-control"
+                        type="file"
+                        (change)="onFileSelected($event)"
+                        accept="image/*"
+                      />
+
+                      <!-- Image Preview -->
+                      <div *ngIf="previewUrl" class="mt-3">
+                        <img
+                          [src]="previewUrl"
+                          alt="Preview"
+                          class="img-thumbnail"
+                          style="max-width: 200px"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Right Column -->
+                  <div class="col-lg-6">
+                    <!-- Category -->
+                    <div class="mb-3">
+                      <label class="form-label">Category</label>
+                      <select
+                        name="category"
+                        class="form-select"
+                        ngModel
+                        required
+                      >
+                        <option value="" disabled selected>
+                          - select category -*
+                        </option>
+                        <option
+                          *ngFor="let category of categories"
+                          [value]="category.id"
+                        >
+                          {{ category.name }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <!-- Product Description -->
+                    <div class="mb-3">
+                      <label class="form-label">Product Description</label>
+                      <textarea
+                        name="description"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Enter product description"
+                        ngModel
+                        required
+                      ></textarea>
+                    </div>
+
+                    <!-- VAT Checkbox -->
+                    <div class="mb-3 form-check">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="vatCheck"
+                        name="vat"
+                        [(ngModel)]="vat"
+                      />
+                      <label class="form-check-label" for="vatCheck">
+                        Add VAT (Value Added Tax 7.5%)
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 text-end">
+                <button type="submit" class="btn btn-primary">
+                  Add Product
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Start Footer-->
+    <footer class="footer text-center text-sm-start d-print-none">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-0 rounded-bottom-0">
+              <div class="card-body">
+                <p class="text-muted mb-0">© Logsinventory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+
+<!-- Import Spreadsheet Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Import Product Spreadsheet
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+          <!-- IMPORT PRODUCT SPREADSHEET PAGE BODY -->
+          <div class="container-fluid">
+            <div class="mb-3">
+              <a href="/public/assets/templates/products.xlsx" download>
+                <button class="btn btn-outline-primary">
+                  Download Template
+                </button>
+              </a>
+            </div>
+            <div>
+              <!-- GET EXCEL FILE USING THE INPUT ELEMENT -->
+              <input
+                type="file"
+                (change)="onFileChange($event)"
+                accept=".xlsx, .xls"
+              />
+            </div>
+
+            <div *ngIf="excelData">
+              <button
+                type="submit"
+                class="btn btn-outline-primary mt-4"
+                style="margin: 0 auto; display: block"
+                (click)="addNewProductFromSpreadSheet()"
+              >
+                Add Product
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

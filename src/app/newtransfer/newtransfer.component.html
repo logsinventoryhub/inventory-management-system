@@ -1,0 +1,209 @@
+<!--New Product Section Main Container-->
+<div class="page-wrapper">
+  <!-- Page Content-->
+  <div class="page-content">
+    <div class="container-xxl">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col p-3">
+                  <h4 class="card-title">Add New Transfer</h4>
+                </div>
+                <!--end col-->
+              </div>
+              <!--end row-->
+            </div>
+            <!--end card-header-->
+            <form
+              (ngSubmit)="addNewTransfer(newTransferData)"
+              #newTransferData="ngForm"
+            >
+              <div class="card-body pt-3">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label
+                        for="example-text-input"
+                        class="col-sm-2 col-form-label text-start"
+                        >Product</label
+                      >
+                      <div class="col-sm-10">
+                        <ng-select
+                          name="product"
+                          [items]="products"
+                          bindLabel="name"
+                          bindValue="id"
+                          [(ngModel)]="product_id"
+                          placeholder="Search and select a product"
+                          [searchable]="true"
+                          class="form-control"
+                        >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                  <!--end col-->
+
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label
+                        for="example-number-input"
+                        class="col-sm-2 col-form-label text-start"
+                        >Quantity</label
+                      >
+                      <div class="col-sm-10">
+                        <input
+                          name="quantity"
+                          class="form-control"
+                          type="number"
+                          placeholder="Product Quantity"
+                          id="example-number-input"
+                          ngModel
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >From:
+                      </label>
+                      <div class="col-sm-10">
+                        <ng-select
+                          [items]="warehouses"
+                          bindLabel="street"
+                          bindValue="id"
+                          name="from_address"
+                          [(ngModel)]="from_id"
+                          placeholder="Search and select a location"
+                          [searchable]="true"
+                          class="form-control"
+                        >
+                          <ng-template ng-label-tmp let-item="item">
+                            {{ item.street }}, {{ item.state }},
+                            {{ item.country }}
+                          </ng-template>
+                          <ng-template ng-option-tmp let-item="item">
+                            {{ item.street }}, {{ item.state }},
+                            {{ item.country }}
+                          </ng-template>
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >To:
+                      </label>
+                      <div class="col-sm-10">
+                        <ng-select
+                          [items]="warehouses"
+                          bindLabel="street"
+                          bindValue="id"
+                          name="to_address"
+                          [(ngModel)]="to_id"
+                          placeholder="Search and select a location"
+                          [searchable]="true"
+                          class="form-control"
+                        >
+                          <ng-template ng-label-tmp let-item="item">
+                            {{ item.street }}, {{ item.state }},
+                            {{ item.country }}
+                          </ng-template>
+                          <ng-template ng-option-tmp let-item="item">
+                            {{ item.street }}, {{ item.state }},
+                            {{ item.country }}
+                          </ng-template>
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Assigned To:
+                      </label>
+                      <div class="col-sm-10">
+                        <ng-select
+                          [items]="users"
+                          bindLabel="username"
+                          bindValue="id"
+                          name="assigned_to"
+                          [(ngModel)]="assigned_user_id"
+                          placeholder="Search and select a user"
+                          [searchable]="true"
+                          class="form-control"
+                        >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label text-start"
+                        >Status:
+                      </label>
+                      <div class="col-sm-10">
+                        <ng-select
+                          [items]="status"
+                          bindLabel="name"
+                          bindValue="name"
+                          name="transfer_to"
+                          [(ngModel)]="transfer_status"
+                          placeholder="Search and select a status"
+                          [searchable]="true"
+                          class="form-control"
+                        >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                  <!--end col-->
+                </div>
+                <!--end row-->
+              </div>
+              <!--end card-body-->
+              <div class="p-3">
+                <button type="submit" [disabled]="!newTransferData.valid" class="btn btn-primary">Transfer</button>
+              </div>
+            </form>
+            <!--end of form-->
+          </div>
+          <!--end card-->
+        </div>
+        <!--end col-->
+      </div>
+      <!--end row-->
+    </div>
+    <!-- container -->
+    <!--Start Footer-->
+
+    <footer class="footer text-center text-sm-start d-print-none">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-0 rounded-bottom-0">
+              <div class="card-body">
+                <p class="text-muted mb-0">© Logsinventory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!--end footer-->
+  </div>
+  <!-- end page content -->
+</div>
+<!-- end page-wrapper -->
+
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

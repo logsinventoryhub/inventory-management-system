@@ -1,0 +1,167 @@
+<!-- NEW CUSTOMER -->
+<div class="page-wrapper">
+  <!-- Page Content -->
+  <div class="page-content">
+    <div class="container-xxl">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header p-3">
+              <h4 class="card-title mb-0">Add New Customer</h4>
+            </div>
+
+            <!-- Reactive Form -->
+            <form [formGroup]="addCustomerForm" (ngSubmit)="addCustomer()">
+              <div class="card-body">
+                <div class="row g-4">
+                  <!-- First Name -->
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="first_name" class="form-label"
+                        >First Name</label
+                      >
+                      <input
+                        type="text"
+                        id="first_name"
+                        class="form-control"
+                        placeholder="Enter First Name"
+                        formControlName="first_name"
+                        required
+                      />
+                      <div
+                        *ngIf="
+                          addCustomerForm.get('first_name')?.invalid &&
+                          addCustomerForm.get('first_name')?.touched
+                        "
+                        class="text-danger small"
+                      >
+                        First name is required.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Last Name -->
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="first_name" class="form-label"
+                        >Last Name</label
+                      >
+                      <input
+                        type="text"
+                        id="last_name"
+                        class="form-control"
+                        placeholder="Enter Last Name"
+                        formControlName="last_name"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Phone -->
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="phone" class="form-label">Phone</label>
+                      <input
+                        type="text"
+                        id="phone"
+                        class="form-control"
+                        placeholder="Enter Phone Number"
+                        formControlName="phone"
+                        required
+                      />
+                      <div
+                        *ngIf="
+                          addCustomerForm.get('phone')?.invalid &&
+                          addCustomerForm.get('phone')?.touched
+                        "
+                        class="text-danger small"
+                      >
+                        Customer phone number is required.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Country -->
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="country" class="form-label">Country</label>
+                      <ng-select
+                        [items]="countries"
+                        bindLabel="name"
+                        bindValue="name"
+                        formControlName="country"
+                        placeholder="Search and select a country"
+                        [searchable]="true"
+                        class="form-control"
+                      >
+                      </ng-select>
+                    </div>
+                  </div>
+
+                  <!-- State -->
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="state" class="form-label">State</label>
+                      <ng-select
+                        [items]="filteredStates"
+                        bindLabel="name"
+                        bindValue="name"
+                        formControlName="state"
+                        placeholder="Search and select a state"
+                        [searchable]="true"
+                        class="form-control"
+                      >
+                      </ng-select>
+                    </div>
+                  </div>
+
+                  <!-- Address -->
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="street" class="form-label">Street</label>
+                      <input
+                        type="text"
+                        id="street"
+                        class="form-control"
+                        placeholder="Enter Address"
+                        formControlName="street"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="px-3 pb-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="addCustomerForm.invalid"
+                >
+                  Add Customer
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center text-sm-start d-print-none">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-0 rounded-bottom-0">
+              <div class="card-body">
+                <p class="text-muted mb-0">© Logsinventory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- Loading Spinner -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

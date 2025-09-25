@@ -1,0 +1,202 @@
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand fw-bold" routerLink="/">
+      <i class="fas fa-store me-2"></i>{{ business }} Shop
+    </a>
+    <div class="ms-auto">
+      <!-- <div class="form-check form-switch me-3">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="darkModeSwitch"
+          (change)="toggleTheme($event)"
+          [checked]="isDarkMode"
+        />
+        <label class="form-check-label text-white" for="darkModeSwitch"
+          >Dark Mode</label
+        >
+      </div> -->
+
+      <a
+        class="btn btn-dark btn-sm text-white"
+        routerLink="/cart/{{ businessId }}/{{ business }}"
+      >
+        <i class="fas fa-shopping-cart me-1"></i> Cart
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<header
+  class="hero-header text-white d-flex align-items-center justify-content-center py-5"
+>
+  <div class="container text-center">
+    <div class="hero-content mx-auto">
+      <h1 class="display-5 display-md-3 fw-bold mb-3">
+        <i class="fas fa-store me-2"></i>Welcome to {{ business }} Store
+      </h1>
+      <p class="lead fs-5 fs-md-3 mb-4">
+        Welcome to a world where quality meets convenience. Browse, shop, and
+        enjoy handpicked selections for every lifestyle — all tailored just for
+        you.
+      </p>
+      <button
+        class="btn btn-light btn-lg px-4 py-2"
+        (click)="scrollToProducts()"
+      >
+        <i class="fas fa-shopping-cart me-2"></i> Shop Now
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Product Gallery Section -->
+<main class="container my-5 px-3 px-md-4" id="products">
+  <h1 class="fw-bold mb-4 text-center text-md-start">Products</h1>
+
+  <!-- Category Filter Pills -->
+  <ul
+    class="nav nav-pills mb-4 flex-wrap gap-2 justify-content-center justify-content-md-start"
+    role="tablist"
+  >
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        data-bs-toggle="pill"
+        data-bs-target="#all"
+        type="button"
+        role="tab"
+      >
+        All
+      </button>
+    </li>
+    <li
+      class="nav-item"
+      *ngFor="let category of categories"
+      role="presentation"
+    >
+      <button
+        class="nav-link"
+        [attr.data-bs-target]="'#' + formatId(category)"
+        data-bs-toggle="pill"
+        type="button"
+        role="tab"
+      >
+        {{ category }}
+      </button>
+    </li>
+  </ul>
+
+  <!-- Tab Contents -->
+  <div class="tab-content">
+    <!-- All Products Tab -->
+    <div class="tab-pane fade show active" id="all" role="tabpanel">
+      <div class="row g-3 g-md-4">
+        <ng-container *ngFor="let product of products">
+          <ng-container
+            *ngTemplateOutlet="productCard; context: { $implicit: product }"
+          ></ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Category-specific Tabs -->
+    <div
+      class="tab-pane fade"
+      *ngFor="let category of categories"
+      [attr.id]="formatId(category)"
+      role="tabpanel"
+    >
+      <div class="row g-3 g-md-4">
+        <ng-container *ngFor="let product of getProductsByCategory(category)">
+          <ng-container
+            *ngTemplateOutlet="productCard; context: { $implicit: product }"
+          ></ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Card Template -->
+  <ng-template #productCard let-product>
+    <div class="col-6 col-sm-6 col-md-4 col-xl-3">
+      <div class="card product-card border-0 shadow-sm h-100 text-start">
+        <img
+          [src]="
+            product.image
+              ? 'https://logsinventory.com/LogsBackendFiles/uploads/products/' +
+                product.image
+              : 'for_sale_2.png'
+          "
+          class="card-img-top img-fluid rounded-top"
+          [alt]="product.product_name"
+          style="object-fit: contain; aspect-ratio: 4/3; max-height: 150px"
+        />
+        <div class="card-body p-2 p-md-3">
+          <h5 class="card-title fw-bold mb-1 fs-6 fs-md-5">
+            {{ product.product_name }}
+          </h5>
+          <p class="text-muted mb-1 small">{{ product.category_name }}</p>
+
+          <!-- Price Display Logic -->
+          <ng-container
+            *ngIf="
+              product.discount_price && product.discount_price != 0;
+              else normalPrice
+            "
+          >
+            <p class="mb-1 small">
+              <span class="text-muted text-decoration-line-through me-2"
+                >₦{{ product.price | number:'1.2-2' }}</span
+              >
+              <span class="fw-bold text-primary"
+                >₦{{ product.discount_price | number:'1.2-2' }}</span
+              >
+            </p>
+          </ng-container>
+          <ng-template #normalPrice>
+            <p class="fw-bold text-primary mb-1 small">₦{{ product.price | number:'1.2-2' }}</p>
+          </ng-template>
+
+          <!-- Quantity in Stock -->
+          <ng-container
+            *ngIf="
+              product.total_quantity && product.total_quantity != 0;
+              else outOfStock
+            "
+          >
+            <p class="small text-success mb-3">
+              <i class="fas fa-boxes me-1"></i>{{ product.total_quantity }} in
+              stock
+            </p>
+          </ng-container>
+          <ng-template #outOfStock>
+            <p class="small text-danger mb-3">
+              <i class="fas fa-boxes me-1"></i> Out Of Stock
+            </p>
+          </ng-template>
+
+          <!-- Buttons -->
+          <div class="d-flex flex-wrap gap-2">
+            <button
+              class="btn btn-outline-dark btn-lg flex-fill"
+              (click)="addToCart(product)"
+            >
+              <i class="fas fa-cart-plus me-1"></i> Add to Cart
+            </button>
+            <!-- <button class="btn btn-outline-secondary btn-sm flex-fill">
+              <i class="fas fa-heart"></i>
+            </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</main>
+
+<!-- Footer -->
+<footer class="bg-light text-center py-4 mt-5 border-top">
+  <p class="mb-0 small">&copy; Logs {{ currentYear }}. All rights reserved.</p>
+</footer>

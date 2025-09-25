@@ -1,0 +1,194 @@
+<!--User Settings Section Main Container-->
+<div class="container-fluid user-settings-container">
+
+    <!--User Settings Section Page Indicator Section-->
+    <div class="container-fluid dashboard-section-nav">
+        <h6>User Account Settings</h6>
+    </div>
+
+    <!--User Settings Form Main Container-->
+    <div class="container-fluid user-settings-form-container">
+        <div class="card user-settings-form-container-card">
+            <div class="card-title p-3" style="border: 1px solid #adabab;">
+                <h6>Profile Settings</h6>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="username" class="mb-3">Username</label>
+                            <mat-form-field appearance="outline" class="user-settings-form-field">
+                                <mat-label>Username</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="userID" class="mb-3">User ID</label>
+                            <mat-form-field appearance="outline" class="user-settings-form-field">
+                                <mat-label>User ID</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="userEmail" class="mb-3">User Email</label>
+                            <mat-form-field appearance="outline" class="user-settings-form-field">
+                                <mat-label>User Email</mat-label>
+                                <input type="email" matInput placeholder="Ex. user@mail.com">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phoneNumber" class="mb-3">Phone Number</label>
+                            <mat-form-field appearance="outline" class="user-settings-form-field">
+                                <mat-label>Phone Number</mat-label>
+                                <span matTextPrefix>+234 &nbsp;</span>
+                                <input type="tel" matInput placeholder="803-555-1234">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-success" mat-fab extended="">Update Changes</button>
+                </form>
+            </div>
+            <div class="card-title p-3 mt-3 mb-3" style="border: 1px solid #adabab;">
+                <h6>Account Permissions</h6>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>
+                                <label for="addProduct">Add Product</label>
+                            </div>
+                            <section class="example-section">
+                                <mat-checkbox name="addProduct" class="example-margin"
+                                    [(ngModel)]="allow">Allow</mat-checkbox>
+                                <mat-checkbox name="addProduct" class="example-margin"
+                                    [(ngModel)]="deny">Deny</mat-checkbox>
+                            </section>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <label for="editProduct">Edit Product</label>
+                            </div>
+                            <section class="example-section">
+                                <mat-checkbox name="editProduct" class="example-margin"
+                                    [(ngModel)]="allow">Allow</mat-checkbox>
+                                <mat-checkbox name="editProduct" class="example-margin"
+                                    [(ngModel)]="deny">Deny</mat-checkbox>
+                            </section>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <label for="deleteProduct">Delete Product</label>
+                            </div>
+                            <section class="example-section">
+                                <mat-checkbox name="deleteProduct" class="example-margin"
+                                    [(ngModel)]="allow">Allow</mat-checkbox>
+                                <mat-checkbox name="deleteProduct" class="example-margin"
+                                    [(ngModel)]="deny">Deny</mat-checkbox>
+                            </section>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>
+                                <label for="manageOrders">Manage Orders</label>
+                            </div>
+                            <section class="example-section">
+                                <mat-checkbox name="manageOrders" class="example-margin"
+                                    [(ngModel)]="allow">Allow</mat-checkbox>
+                                <mat-checkbox name="manageOrders" class="example-margin"
+                                    [(ngModel)]="deny">Deny</mat-checkbox>
+                            </section>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <label for="deleteProduct">Manage Stocks</label>
+                            </div>
+                            <section class="example-section">
+                                <mat-checkbox name="deleteProduct" class="example-margin"
+                                    [(ngModel)]="allow">Allow</mat-checkbox>
+                                <mat-checkbox name="deleteProduct" class="example-margin"
+                                    [(ngModel)]="deny">Deny</mat-checkbox>
+                            </section>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <label for="deleteProduct">Manage Users</label>
+                            </div>
+                            <section class="example-section">
+                                <mat-checkbox name="deleteProduct" class="example-margin"
+                                    [(ngModel)]="allow">Allow</mat-checkbox>
+                                <mat-checkbox name="deleteProduct" class="example-margin"
+                                    [(ngModel)]="deny">Deny</mat-checkbox>
+                            </section>
+
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-success" mat-fab extended="">Update Changes</button>
+                </form>
+            </div>
+            <div class="card-title p-3 mt-3 mb-3" style="border: 1px solid #adabab;">
+                <h6>Change Password</h6>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="userID" class="mb-3">User ID</label>
+                            <mat-form-field appearance="outline" class="user-settings-form-field">
+                                <mat-label>User ID</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="oldPassword" class="mb-3">Old Password</label>
+                            <mat-form-field appearance="outline" class="user-settings-form-field">
+                                <mat-label>Old Password</mat-label>
+                                <input matInput [type]="hide() ? 'password' : 'text'" />
+                                <button mat-icon-button matSuffix (click)="clickEvent($event)"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                                    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="password" class="mb-3">Password</label>
+                            <mat-form-field appearance="outline" class="user-settings-form-field">
+                                <mat-label>Password</mat-label>
+                                <input matInput [type]="hide() ? 'password' : 'text'" />
+                                <button mat-icon-button matSuffix (click)="clickEvent($event)"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                                    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="confirmPassword" class="mb-3">Confirm Password</label>
+                            <mat-form-field appearance="outline" class="user-settings-form-field">
+                                <mat-label>Confirm Password</mat-label>
+                                <input matInput [type]="hide() ? 'password' : 'text'" />
+                                <button mat-icon-button matSuffix (click)="clickEvent($event)"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                                    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-success" mat-fab extended="">Update Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

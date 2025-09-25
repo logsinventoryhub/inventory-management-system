@@ -1,84 +1,358 @@
-<nav class="navbar navbar-expand-lg seller-panel-top-nav fixed-top">
+<!-- Top Bar Start -->
+<div class="topbar d-print-none">
+  <div class="container-xxl">
+    <nav class="topbar-custom d-flex justify-content-between" id="topbar-custom">
 
-    <a style="cursor: pointer !important; color: #ffffff !important; text-shadow: 2px 2px 4px #000000 !important; text-decoration: overline; z-index: 2;"
-        class="navbar-brand mt-3"></a>
+      <!-- Left Side -->
+      <ul class="topbar-item list-unstyled d-inline-flex align-items-center mb-0">
+        <li>
+          <button class="nav-link mobile-menu-btn nav-icon" id="togglemenu">
+            <i class="iconoir-menu-scale"></i>
+          </button>
+        </li>
+        <li class="mx-3 welcome-text">
+          <h3 class="mb-0 fw-bold text-truncate">Hello, {{ username }}</h3>
+        </li>
+      </ul>
 
-    <div class="btn-group" style="float: right !important;">
+      <!-- Right Side -->
+      <ul class="topbar-item list-unstyled d-inline-flex align-items-center mb-0">
 
-        <button type="button" style="border-top: 0;" class="btn dropdown-toggle dropdown-toggle-split"
-            data-bs-toggle="dropdown"
-            style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(190, 150, 150, 0.19); border: 0 !important;">
-            <i class="fa fa-user-o" style="color:#fff"></i>
-        </button>
+        <!-- Search -->
+        <li class="hide-phone app-search">
+          <form role="search" action="#" method="get">
+            <input 
+              type="search" 
+              name="search" 
+              class="form-control top-search mb-0" 
+              placeholder="Search here..." 
+            />
+            <button type="submit"><i class="iconoir-search"></i></button>
+          </form>
+        </li>
 
-    </div>
+        <!-- Dark Mode Toggle -->
+        <li class="topbar-item">
+          <a class="nav-link nav-icon" href="javascript:void(0);" id="light-dark-mode">
+            <i class="iconoir-half-moon dark-mode"></i>
+            <i class="iconoir-sun-light light-mode"></i>
+          </a>
+        </li>
 
-    <i style="float:right; cursor:pointer; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"
-        class="navbar-toggler fa fa-user-o" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    </i>
+        <!-- Notifications -->
+        <li class="topbar-item">
+          <a class="nav-link nav-icon position-relative" href="javascript:void(0);" id="notification-button">
+            <i class="iconoir-bell"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              {{ notificationCount }}
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </a>
+        </li>
 
+        <!-- User Dropdown -->
+        <li class="dropdown topbar-item">
+          <a 
+            class="nav-link dropdown-toggle arrow-none nav-icon iconoir-user" 
+            data-bs-toggle="dropdown" 
+            role="button" 
+            aria-haspopup="false" 
+            aria-expanded="false">
+          </a>
 
-</nav>
-
-
-
-
-<div class="container-fluid main">
-
-    <div class="wrapper">
-
-        <div class="sidenav" id="sidenav">
-
-            <div class="sidenav-head">
-                <div>
-                    <img src="medmap&logs-10.png" class="user-img img-fluid">
-                </div>
+          <div class="dropdown-menu dropdown-menu-end py-0">
+            <div class="d-flex align-items-center dropdown-item py-2 bg-secondary-subtle">
+              <div class="flex-grow-1 ms-2 text-truncate align-self-center">
+                <h6 class="my-0 fw-medium text-dark fs-13">{{ username }}</h6>
+                <small class="text-muted mb-0">User</small>
+              </div>
             </div>
 
-            <div class="sidenav-content" id="mySellerPanelRoutes">
+            <div class="dropdown-divider mt-0"></div>
 
+            <!--<small class="text-muted px-2 pb-1 d-block">Account</small>-->
 
-                <li><a class="sellerPanelRoute sellerPanelActiveRoute" routerLink="analytics"> <fa-icon [icon]="faGauge"></fa-icon> Dashboard </a></li>
+            <small class="text-muted px-2 py-1 d-block">Settings</small>
+            <a *ngIf="admin || manager" class="dropdown-item" routerLink="settings">
+              <i class="las la-cog fs-18 me-1 align-text-bottom"></i> Account Settings
+            </a>
+            <a class="dropdown-item disabled" href="javascript:void(0);" tabindex="-1" aria-disabled="true">
+              <i class="las la-question-circle fs-18 me-1 align-text-bottom"></i> Help Center
+            </a>
 
-                <li><a class="sellerPanelRoute" routerLink="categories"> <fa-icon [icon]="faList"></fa-icon> Categories </a>
-                </li>
+            <div class="dropdown-divider mb-0"></div>
+            <a class="dropdown-item text-danger" (click)="logout()">
+              <i class="las la-power-off fs-18 me-1 align-text-bottom"></i> Logout
+            </a>
+          </div>
+        </li>
 
-                <li><a class="sellerPanelRoute" routerLink="products"> <fa-icon [icon]="faShop"></fa-icon> Products </a>
-                </li>
-
-                <li><a class="sellerPanelRoute" routerLink="seller-settings">Orders<i
-                            class="fas fa-cog fa-spin ko"></i></a>
-                </li>
-
-                <li><a class="sellerPanelRoute" routerLink="seller-settings"> Purchases <i
-                            class="fas fa-cog fa-spin ko"></i></a>
-                </li>
-
-                <li><a class="sellerPanelRoute" routerLink="seller-settings"> Suppliers <i
-                            class="fas fa-cog fa-spin ko"></i></a>
-                </li>
-
-                <li><a class="sellerPanelRoute" routerLink="transfers"> <fa-icon [icon]="faTruck"></fa-icon> Transfers </a>
-                </li>
-
-                <li><a class="sellerPanelRoute" routerLink="users"> <fa-icon [icon]="faUser"></fa-icon> Users </a>
-                </li>
-
-                <li><a class="sellerPanelRoute" routerLink="settings"> <fa-icon [icon]="faUserGear"></fa-icon> Settings </a>
-                </li>
-
-                <li><a class="sellerPanelRoute" routerLink="/"> <fa-icon [icon]="faRightFromBracket"></fa-icon> Logout </a>
-                </li>
-
-            </div>
-        </div>
-
-        <div class="main-content mt-5">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
-
-    <div class="routeOverlay" id="routeOverlay"></div>
-
+      </ul>
+    </nav>
+  </div>
 </div>
+
+<!-- Top Bar End -->
+
+<!-- Left Sidebar Start -->
+<div class="startbar d-print-none">
+  <div class="brand">
+    <a routerLink="/dashboard" class="logo"><span></span><span></span></a>
+  </div>
+
+  <div class="startbar-menu">
+    <div class="startbar-collapse" id="startbarCollapse" data-simplebar>
+      <div class="d-flex align-items-start flex-column w-100">
+        <ul class="navbar-nav mb-auto w-100">
+          <li class="menu-label pt-0 mt-0"><span>Main Menu</span></li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard"
+              ><i class="iconoir-home-simple menu-icon"></i>
+              <span
+                >Dashboards <span class="badge badge-danger">New</span></span
+              ></a
+            >
+          </li>
+
+          <!-- Category -->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-bs-toggle="collapse"
+              href="#sidebarCategories"
+              role="button"
+              aria-expanded="false"
+              aria-controls="sidebarCategories"
+            >
+              <i class="iconoir-sort menu-icon"></i><span>Category</span>
+            </a>
+            <div class="collapse" id="sidebarCategories">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="newcategory"
+                    >Create Category</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="categories"
+                    >View Categories</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Supplier -->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-bs-toggle="collapse"
+              href="#sidebarSuppliers"
+              role="button"
+              aria-expanded="false"
+              aria-controls="sidebarSuppliers"
+            >
+              <i class="iconoir-user-cart menu-icon"></i
+              ><span>Supplier <span class="badge badge-danger">New</span></span>
+            </a>
+            <div class="collapse" id="sidebarSuppliers">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="newsupplier">Add Supplier</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="suppliers">View Suppliers</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Product -->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-bs-toggle="collapse"
+              href="#sidebarProducts"
+              role="button"
+              aria-expanded="false"
+              aria-controls="sidebarProducts"
+            >
+              <i class="iconoir-cart menu-icon"></i><span>Product</span>
+            </a>
+            <div class="collapse" id="sidebarProducts">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="newproduct">Add Product</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="products">View Products</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Order -->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-bs-toggle="collapse"
+              href="#sidebarOrders"
+              role="button"
+              aria-expanded="false"
+              aria-controls="sidebarOrders"
+            >
+              <i class="iconoir-shopping-bag menu-icon"></i
+              ><span>Order <span class="badge badge-danger">New</span></span>
+            </a>
+            <div class="collapse" id="sidebarOrders">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="sales">Sales Order</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="purchases">Purchase Order</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Transfer -->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-bs-toggle="collapse"
+              href="#sidebarTransfer"
+              role="button"
+              aria-expanded="false"
+              aria-controls="sidebarTransfer"
+            >
+              <i class="iconoir-transition-right menu-icon"></i
+              ><span>Transfer <span class="badge badge-danger">New</span></span>
+            </a>
+            <div class="collapse" id="sidebarTransfer">
+              <ul class="nav flex-column">
+                <li class="nav-item" *ngIf="admin || manager">
+                  <a class="nav-link" routerLink="newtransfer"
+                    >Transfer Product</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="transfers">View Transfers</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Location -->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-bs-toggle="collapse"
+              href="#sidebarWarehouse"
+              role="button"
+              aria-expanded="false"
+              aria-controls="sidebarWarehouse"
+            >
+              <i class="iconoir-map-pin menu-icon"></i><span>Location</span>
+            </a>
+            <div class="collapse" id="sidebarWarehouse">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="addwarehouse">Add Location</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="store">View Locations</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Customers -->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-bs-toggle="collapse"
+              href="#sidebarCustomers"
+              role="button"
+              aria-expanded="false"
+              aria-controls="sidebarCustomers"
+            >
+              <i class="iconoir-user-cart menu-icon"></i
+              ><span>Customer <span class="badge badge-danger">New</span></span>
+            </a>
+            <div class="collapse" id="sidebarCustomers">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="newcustomer">Add Customer</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="customers">View Customers</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Product Gallery -->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['/product-gallery', business_id, business]"
+              target="_blank"
+            >
+              <i class="iconoir-cart menu-icon"></i><span>Product Gallery</span>
+            </a>
+          </li>
+
+          <!-- Users -->
+          <li class="menu-label mt-2"><span>Accounts</span></li>
+
+          <li class="nav-item" *ngIf="admin || manager">
+            <a
+              class="nav-link"
+              data-bs-toggle="collapse"
+              href="#sidebarUsers"
+              role="button"
+              aria-expanded="false"
+              aria-controls="sidebarUsers"
+            >
+              <i class="iconoir-user menu-icon"></i><span>Users</span>
+            </a>
+            <div class="collapse" id="sidebarUsers">
+              <ul class="nav flex-column">
+                <li class="nav-item" *ngIf="admin">
+                  <a class="nav-link" routerLink="newuser">Add Users</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="users">Manage Users</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Settings -->
+          <li class="menu-label mt-2" *ngIf="admin || manager">
+            <span>Settings</span>
+          </li>
+
+          <li class="nav-item" *ngIf="admin || manager">
+            <a class="nav-link" routerLink="settings"
+              ><i class="iconoir-settings menu-icon"></i><span>Account</span></a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()"
+              ><i class="iconoir-transition-left menu-icon"></i
+              ><span>Logout</span></a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="startbar-overlay d-print-none"></div>
+<!-- Left Sidebar End -->
+
+<!-- Router Outlet -->
+<router-outlet></router-outlet>

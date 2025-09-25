@@ -6,10 +6,80 @@
     margin-top: 8px;
 }
 
+.mat-horizontal-content-container {
+    padding: 0 !important;
+}
+
+.mat-horizontal-content-container .ng-tns-c2825939193-0 {
+    padding: 0 !important;
+}
+
 .mat-mdc-form-field {
     margin-top: 16px;
 }
 
-.signup-card {
-    padding: 10px;
+.sign-up-card {
+    padding: 0;
+    margin-top: 100px;
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+}
+
+@media only screen and (max-width: 600px) {
+    .sign-up-card {
+        padding: 0px;
+    }
+
+    .sign-up-carousel-section {
+        padding: 15px;
+        display: none;
+    }
+    
+}
+
+@media screen and (min-width: 992px) {
+    .sign-up-card-form {
+        padding: 20px;
+        padding-top: 5px;
+    }
+}
+
+.example-full-width {
+    width: 100%;
+  }
+
+.sign-up-form-table {
+    width: 100%;
+}
+
+.sign-up-form-field {
+    width: 100%;
+}
+
+td {
+    padding-right: 8px;
+  }
+
+
+  .signup-container {
+  padding: 1rem;
+  max-width: 700px;
+  margin: auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+@media screen and (max-width: 600px) {
+  .actions {
+    flex-direction: column;
+    gap: 12px;
+  }
 }

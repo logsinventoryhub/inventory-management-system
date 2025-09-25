@@ -1,0 +1,352 @@
+<!--Orders Section Main Container-->
+<div class="page-wrapper">
+  <!-- Page Content-->
+  <div class="page-content">
+    <div class="container-xxl">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h4 class="card-title">Purchase Orders</h4>
+                </div>
+                <!--end col-->
+                <div class="col-auto">
+                  <form class="row g-2">
+                    <div class="col-auto">
+                      <a
+                        class="btn bg-primary-subtle text-primary dropdown-toggle d-flex align-items-center arrow-none"
+                        data-bs-toggle="dropdown"
+                        href="#"
+                        role="button"
+                        aria-haspopup="false"
+                        aria-expanded="false"
+                        data-bs-auto-close="outside"
+                      >
+                        <i class="iconoir-filter-alt me-1"></i> Filter
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-start">
+                        <div class="p-2">
+                          <div class="form-check mb-2">
+                            <input
+                              type="checkbox"
+                              class="form-check-input"
+                              checked
+                              id="filter-all"
+                            />
+                            <label class="form-check-label" for="filter-all">
+                              All
+                            </label>
+                          </div>
+                          <div class="form-check mb-2">
+                            <input
+                              type="checkbox"
+                              class="form-check-input"
+                              checked
+                              id="filter-one"
+                            />
+                            <label class="form-check-label" for="filter-one">
+                              Date
+                            </label>
+                          </div>
+                          <div class="form-check mb-2">
+                            <input
+                              type="checkbox"
+                              class="form-check-input"
+                              checked
+                              id="filter-two"
+                            />
+                            <label class="form-check-label" for="filter-two">
+                              Colour
+                            </label>
+                          </div>
+                          <div class="form-check mb-2">
+                            <input
+                              type="checkbox"
+                              class="form-check-input"
+                              checked
+                              id="filter-three"
+                            />
+                            <label class="form-check-label" for="filter-three">
+                              Type
+                            </label>
+                          </div>
+                          <div class="form-check mb-2">
+                            <input
+                              type="checkbox"
+                              class="form-check-input"
+                              checked
+                              id="filter-four"
+                            />
+                            <label class="form-check-label" for="filter-four">
+                              Brand
+                            </label>
+                          </div>
+                          <div class="form-check mb-2">
+                            <input
+                              type="checkbox"
+                              class="form-check-input"
+                              checked
+                              id="filter-five"
+                            />
+                            <label class="form-check-label" for="filter-five">
+                              Weight
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              type="checkbox"
+                              class="form-check-input"
+                              checked
+                              id="filter-six"
+                            />
+                            <label class="form-check-label" for="filter-six">
+                              Location
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--end col-->
+
+                    <div class="col-auto">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        routerLink="/dashboard/newpurchase"
+                      >
+                        <i class="fa-solid fa-plus me-1"></i> New Order
+                      </button>
+                    </div>
+                    <!--end col-->
+                  </form>
+                </div>
+                <!--end col-->
+              </div>
+              <!--end row-->
+            </div>
+            <!--end card-header-->
+            <div class="card-body pt-0">
+              <div class="table-responsive">
+                <table class="table mb-0 checkbox-all" id="datatable_1">
+                  <thead class="table-light">
+                    <tr>
+                      <th style="width: 16px">
+                        <div class="form-check mb-0 ms-n1">
+                          <input
+                            type="checkbox"
+                            class="form-check-input"
+                            name="select-all"
+                            id="select-all"
+                          />
+                        </div>
+                      </th>
+                      <th class="ps-0">ID</th>
+                      <th>Product</th>
+                      <th>Supplier</th>
+                      <th>Quantity</th>
+                      <th>Unit Cost</th>
+                      <th>Total Cost</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th class="text-end">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let purchase of orders">
+                      <td style="width: 16px">
+                        <div class="form-check">
+                          <input
+                            type="checkbox"
+                            class="form-check-input"
+                            name="check"
+                            id="customCheck1"
+                          />
+                        </div>
+                      </td>
+                      <td
+                        class="ps-0"
+                        style="
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          max-width: 200px;
+                          display: inline-block;
+                          vertical-align: top;
+                        "
+                      >
+                        {{ purchase.order_id }}
+                      </td>
+                      <td>
+                        {{ purchase.product }}
+                      </td>
+                      <td>
+                        {{ purchase.supplier }}
+                      </td>
+                      <td>
+                        {{ purchase.order_quantity }}
+                      </td>
+                      <td>₦{{ purchase.unit_cost | number : "1.2-2" }}</td>
+                      <td>₦{{ purchase.total_cost | number : "1.2-2" }}</td>
+                      <td>
+                        <span
+                          class="badge"
+                          [ngClass]="{
+                            'bg-success-subtle text-success':
+                              purchase.delivery_status == 'received',
+                            'bg-danger-subtle text-danger':
+                              purchase.delivery_status === 'pending'
+                          }"
+                        >
+                          <i
+                            class="fas me-1"
+                            [ngClass]="{
+                              'fa-check':
+                                purchase.delivery_status === 'received',
+                              'fa-times': purchase.delivery_status === 'pending'
+                            }"
+                          ></i>
+                          {{ purchase.delivery_status }}
+                        </span>
+                      </td>
+                      <td>
+                        <span>{{ purchase.created_at | date : "medium" }}</span>
+                      </td>
+                      <td class="text-end">
+                        <a (click)="openEditModal(purchase)"
+                          ><i class="las la-pen text-secondary fs-18"></i
+                        ></a>
+                        <a (click)="deleteItem(purchase.id)"
+                          ><i class="las la-trash-alt text-secondary fs-18"></i
+                        ></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end col -->
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- container -->
+
+    <!--Start Footer-->
+
+    <footer class="footer text-center text-sm-start d-print-none">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-0 rounded-bottom-0">
+              <div class="card-body">
+                <p class="text-muted mb-0">© Logsinventory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!--end footer-->
+  </div>
+  <!-- end page content -->
+</div>
+
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+
+<!-- Bootstrap Update Purchase Order Modal -->
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form (ngSubmit)="saveChanges()">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Purchase Order</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>Product</label>
+            <input
+              [(ngModel)]="selectedPurchase.product"
+              name="product"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label>Supplier</label>
+            <select
+              id="supplier"
+              name="supplier"
+              class="form-select"
+              [(ngModel)]="selectedPurchase.supplier"
+              required
+            >
+              <option value="" selected>--Select Supplier-*</option>
+            </select>
+          </div> 
+          <div class="mb-3">
+            <label>Quantity</label>
+            <input
+              [(ngModel)]="selectedPurchase.quantity"
+              name="quantity"
+              class="form-control"
+              required
+            />
+          </div> 
+          <div class="mb-3">
+            <label>Unit Cost</label>
+            <input
+              [(ngModel)]="selectedPurchase.unit_cost"
+              name="unit_cost"
+              class="form-control"
+              required
+            />
+          </div> 
+          <div class="mb-3">
+            <label>Total Cost</label>
+            <input
+              [(ngModel)]="selectedPurchase.total_cost"
+              name="total_cost"
+              class="form-control"
+              required
+            />
+          </div> 
+          <div class="mb-3">
+            <label>Delivery Status</label>
+            <select
+              id="delivery_status"
+              name="delivery_status"
+              class="form-select"
+              [(ngModel)]="selectedPurchase.status"
+              required
+            >
+              <option value="pending" selected>Pending</option>
+              <option value="received">Received</option>
+            </select>
+          </div>    
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+

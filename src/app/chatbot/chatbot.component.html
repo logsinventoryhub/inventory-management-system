@@ -1,0 +1,37 @@
+<!-- Floating Chat Button -->
+<div class="chatbot-toggle" (click)="toggleChat()">
+  <i class="fas fa-comment-dots"></i>
+</div>
+
+<!-- Chatbox -->
+<div class="chatbot-box" *ngIf="chatVisible">
+  <div class="chatbot-header">
+    AI Inventory Assistant
+    <button class="close-btn" (click)="toggleChat()">×</button>
+  </div>
+
+  <div class="chatbot-body">
+    <div *ngFor="let msg of messages" class="chat-msg" [ngClass]="msg.sender">
+      <div class="msg-bubble">{{ msg.text }}</div>
+    </div>
+
+    <!-- AI is thinking -->
+    <div *ngIf="isThinking" class="chat-msg bot">
+      <div class="msg-bubble">
+        <i class="fas fa-spinner fa-spin"></i> Thinking...
+      </div>
+    </div>
+  </div>
+  
+  <div class="chatbot-footer">
+    <input
+      type="text"
+      [(ngModel)]="userInput"
+      (keyup.enter)="sendMessage()"
+      placeholder="Ask me about stock, sales, etc."
+    />
+    <button (click)="sendMessage()">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </div>
+</div>

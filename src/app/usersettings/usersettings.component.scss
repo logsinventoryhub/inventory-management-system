@@ -1,0 +1,38 @@
+@media only screen and (min-width: 992px) {
+    .user-settings-container {
+        padding: 50px;
+        padding-top: 0;
+    }
+
+    .user-settings-form-container-card {
+        padding: 30px;
+    }
+}
+
+.user-settings-container .dashboard-section-nav {
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.user-settings-form-field {
+    width: 100%;
+}
+
+.example-h2 {
+    margin: 10px;
+}
+
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.example-margin {
+    margin: 0 10px;
+}

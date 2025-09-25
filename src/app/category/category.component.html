@@ -1,0 +1,100 @@
+<!-- CREATE NEW CATEGORY -->
+<div class="page-wrapper">
+  <!-- Page Content -->
+  <div class="page-content">
+    <div class="container-xxl">
+      
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="card">
+
+            <!-- Card Header -->
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col p-3">
+                  <h4 class="card-title">Create New Category</h4>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category Form -->
+            <form (ngSubmit)="createCategory(categoryData)" #categoryData="ngForm" novalidate>
+              <div class="card-body pt-3">
+                <div class="row">
+
+                  <!-- Category Name -->
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label for="categoryName" class="col-sm-2 col-form-label text-start">Name</label>
+                      <div class="col-sm-10">
+                        <input
+                          id="categoryName"
+                          name="name"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter Category Name"
+                          ngModel
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Category Status -->
+                  <div class="col-lg-6">
+                    <div class="mb-3 row">
+                      <label for="categoryStatus" class="col-sm-2 col-form-label text-start">Status</label>
+                      <div class="col-sm-10">
+                        <select
+                          id="categoryStatus"
+                          name="status"
+                          class="form-select"
+                          ngModel
+                          required
+                        >
+                          <option value="active" selected>Active</option>
+                          <option value="inactive">Inactive</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                </div> <!-- end row -->
+              </div> <!-- end card-body -->
+
+              <!-- Submit Button -->
+              <div class="p-3">
+                <button type="submit" [disabled]="categoryData.invalid" class="btn btn-primary">
+                  Create Category
+                </button>
+              </div>
+            </form>
+            <!-- End Form -->
+
+          </div> <!-- end card -->
+        </div> <!-- end col -->
+      </div> <!-- end row -->
+
+    </div> <!-- end container -->
+
+    <!-- Footer -->
+    <footer class="footer text-center text-sm-start d-print-none mt-4">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-0 rounded-bottom-0">
+              <div class="card-body">
+                <p class="text-muted mb-0">© Logsinventory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+  </div> <!-- end page-content -->
+</div> <!-- end page-wrapper -->
+
+<!-- Spinner -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

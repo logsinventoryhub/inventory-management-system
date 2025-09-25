@@ -1,0 +1,212 @@
+<!--New Product Section Main Container-->
+<div class="page-wrapper">
+
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-xxl">
+
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col p-3">
+                                    <h4 class="card-title">Add New User</h4>
+                                </div><!--end col-->
+                            </div> <!--end row-->
+                        </div><!--end card-header-->
+                        <form (ngSubmit)="createNewUser(newUserData)" #newUserData="ngForm">
+                            <div class="card-body pt-5">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input"
+                                                class="col-sm-3 col-form-label text-start">First Name</label>
+                                            <div class="col-sm-9">
+                                                <input name="first_name" class="form-control" type="text"
+                                                    placeholder="Enter First Name" id="example-text-input" ngModel
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input"
+                                                class="col-sm-3 col-form-label text-start">Last Name</label>
+                                            <div class="col-sm-9">
+                                                <input name="last_name" class="form-control" type="text"
+                                                    placeholder="Enter Last Name" id="example-text-input" ngModel
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input"
+                                                class="col-sm-3 col-form-label text-start">Username</label>
+                                            <div class="col-sm-9">
+                                                <input name="username" class="form-control" type="text"
+                                                    placeholder="Enter Username" id="example-text-input" ngModel
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="example-number-input"
+                                                class="col-sm-3 col-form-label text-start">Email</label>
+                                            <div class="col-sm-9">
+                                                <input name="email" class="form-control" type="email"
+                                                    placeholder="user@email.com" id="example-number-input" ngModel
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div><!--end col-->
+
+
+                                    <div class="col-lg-6">
+                                        <div class="mb-3 row">
+                                            <label for="example-number-input"
+                                                class="col-sm-3 col-form-label text-start">Phone Number</label>
+                                            <div class="col-sm-9">
+                                                <input name="phone" class="form-control" type="tel"
+                                                    placeholder="Enter Phone Number" id="example-number-input" ngModel
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-3 col-form-label text-start">Role</label>
+                                            <div class="col-sm-9">
+                                                <select name="role" class="form-select"
+                                                    aria-label="Default select example" ngModel required>
+                                                    <option value="1" selected>Admin</option>
+                                                    <option value="2" selected>Manager</option>
+                                                    <option value="3" selected>Staff</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="example-number-input"
+                                                class="col-sm-3 col-form-label text-start">Password</label>
+                                            <div class="col-sm-9">
+                                                <input name="password" class="form-control" type="password"
+                                                    placeholder="Enter Password" id="example-number-input" ngModel
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <div class="mb-3 row">
+                                                <label for="example-text-input"
+                                                    class="col-sm-3 col-form-label text-start">Confirm Password</label>
+                                                <div class="col-sm-9">
+                                                    <input name="confirm_password" class="form-control" type="password"
+                                                        placeholder="Confirm Password" id="example-text-input" ngModel
+                                                        required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div><!--end col-->
+                                </div> <!--end row-->
+                                <!-- USER PERMISSIONS -->
+                                <!--<section>
+                                    <div>
+                                        <h6 class="mb-3">User Permissisons</h6>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-3 col-form-label text-start">Add Product</label>
+                                                <div class="col-sm-9">
+                                                    <select name="addProduct" class="form-select"
+                                                        aria-label="Default select example" ngModel required>
+                                                        <option value="allow" selected>allow</option>
+                                                        <option value="deny" selected>deny</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-3 col-form-label text-start">Edit Product</label>
+                                                <div class="col-sm-9">
+                                                    <select name="editProduct" class="form-select"
+                                                        aria-label="Default select example" ngModel required>
+                                                        <option value="allow" selected>allow</option>
+                                                        <option value="deny" selected>deny</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-3 col-form-label text-start">Delect Product</label>
+                                                <div class="col-sm-9">
+                                                    <select name="deleteProduct" class="form-select"
+                                                        aria-label="Default select example" ngModel required>
+                                                        <option value="allow" selected>allow</option>
+                                                        <option value="deny" selected>deny</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-3 col-form-label text-start">Manage Orders</label>
+                                                <div class="col-sm-9">
+                                                    <select name="manageOrders" class="form-select"
+                                                        aria-label="Default select example" ngModel required>
+                                                        <option value="allow" selected>allow</option>
+                                                        <option value="deny" selected>deny</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-3 col-form-label text-start">Manage Stocks</label>
+                                                <div class="col-sm-9">
+                                                    <select name="manageStocks" class="form-select"
+                                                        aria-label="Default select example" ngModel required>
+                                                        <option value="allow" selected>allow</option>
+                                                        <option value="deny" selected>deny</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-3 col-form-label text-start">Manage Users</label>
+                                                <div class="col-sm-9">
+                                                    <select name="manageUsers" class="form-select"
+                                                        aria-label="Default select example" ngModel required>
+                                                        <option value="allow" selected>allow</option>
+                                                        <option value="deny" selected>deny</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </section> -->
+                                <!-- USER PERMISSIONS ENDS -->
+                            </div><!--end card-body-->
+                            <div class="p-3">
+                                <button type="submit" class="btn btn-primary">Add User</button>
+                            </div>
+                        </form><!--end of form-->
+                    </div><!--end card-->
+                </div> <!--end col-->
+            </div><!--end row-->
+        </div><!-- container -->
+        <!--Start Footer-->
+
+        <footer class="footer text-center text-sm-start d-print-none">
+            <div class="container-xxl">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-0 rounded-bottom-0">
+                            <div class="card-body">
+                                <p class="text-muted mb-0">
+                                    © Logsinventory
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!--end footer-->
+    </div>
+    <!-- end page content -->
+</div>
+<!-- end page-wrapper -->
+
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
